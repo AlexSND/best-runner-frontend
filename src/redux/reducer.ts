@@ -1,4 +1,3 @@
-
 import { ActionTypes } from './constants';
 import { AppActions, AppState } from './types';
 
@@ -9,6 +8,7 @@ const initialState: AppState = {
   error: null,
   sortByDistance: null,
   sortByDate: null,
+  filterByType: [],
 };
 const appReducer = (state: AppState = initialState, action: AppActions): AppState => {
   switch (action.type) {
@@ -120,6 +120,12 @@ const appReducer = (state: AppState = initialState, action: AppActions): AppStat
     return {
       ...state,
       sortByDistance: action.payload,
+    };
+
+  case ActionTypes.SET_FILTERED_TYPES:
+    return {
+      ...state,
+      filterByType: action.payload,
     };
 
   case ActionTypes.RESET_STATE:

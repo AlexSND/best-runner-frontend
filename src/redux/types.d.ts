@@ -9,6 +9,7 @@ export interface AppState {
   readonly error: string | null
   readonly sortByDistance: ISortDirection;
   readonly sortByDate: ISortDirection;
+  readonly filterByType: ITrainingType[];
 }
 
 export type AppActions = ActionType<typeof actions>

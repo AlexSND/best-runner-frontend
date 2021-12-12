@@ -79,6 +79,11 @@ export const setDistanceSort = (direction: 'asc' | 'desc' | null) => action(
   ActionTypes.SET_DISTANCE_SORT, direction
 );
 
+// Set filtered types
+export const setFilteredTypes = (types: ITrainingType[]) => action(
+  ActionTypes.SET_FILTERED_TYPES, types
+);
+
 // Reset state
 export const resetState = () => action(
   ActionTypes.RESET_STATE

@@ -1,25 +1,24 @@
 import React, { useMemo, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
-import { ISortDirection, ITraining, ITrainingType } from '../../types';
-import { deleteTraining, setDateSort, setDistanceSort } from '../../redux/actions';
+import { MultiSelect } from 'primereact/multiselect';
+import { ITraining } from '../../types';
+import { deleteTraining, setDateSort, setDistanceSort, setFilteredTypes } from '../../redux/actions';
 import { ActionsField, TableFieldTitle } from './style';
 import { CreateForm } from '../CreateForm/CreateForm';
 import { formatDate } from '../../utils/format-date';
+import { AppState } from '../../redux/types';
 
 interface Props {
   trainings: ITraining[];
-  loading: boolean;
-  types: ITrainingType[];
-  sortByDistance: ISortDirection;
-  sortByDate: ISortDirection;
 }
 
-export const Table = ({ trainings, types, sortByDistance, sortByDate }: Props) => {
+export const Table = ({ trainings }: Props) => {
   const dispatch = useDispatch();
+  const { sortByDistance, sortByDate, filterByType, types } = useSelector((state: AppState) => state);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [editDialog, setEditDialog] = useState(false);
@@ -99,6 +98,18 @@ export const Table = ({ trainings, types, sortByDistance, sortByDate }: Props) =
       : dispatch(setDateSort('desc'));
   };
 
+  const setTypeFilter = (e: any) => {
+    dispatch(setFilteredTypes(e.value));
+  };
+
+  const tableHeaderTemplate = () => {
+    return (
+      <div className="p-d-flex p-jc-between">
+        <MultiSelect value={filterByType} options={types} onChange={setTypeFilter} optionLabel="name" placeholder="Выберите тип" />
+      </div>
+    );
+  };
+
   const dateHeaderTemplate = useMemo(() => {
     return <TableFieldTitle onClick={changeDateSort}>
       <span>Дата</span>
@@ -119,7 +130,7 @@ export const Table = ({ trainings, types, sortByDistance, sortByDate }: Props) =
 
   return (
     <>
-      <DataTable value={trainings} stripedRows className="p-datatable-customers">
+      <DataTable value={trainings} stripedRows className="p-datatable-customers" header={tableHeaderTemplate}>
         <Column field="date" header={dateHeaderTemplate} body={dateBodyTemplate} />
         <Column field="typeId" header="Тип" body={typeBodyTemplate} />
         <Column field="distance" header={distanceHeaderTemplate} />

@@ -4,19 +4,19 @@ import { Preloader } from '../../components/Preloader/Preloader';
 import { Table } from '../../components/Table/Table';
 import { AppState } from '../../redux/types';
 import { Container, ErrorMessage, PageWrapper } from '../../styles/shared-styles';
-import { ITraining } from '../../types';
+import { ITraining, ITrainingType } from '../../types';
 
 export const MainPage = () => {
   const {
+    error,
+    filterByType,
     loading,
-    trainings,
-    types,
-    sortByDistance,
     sortByDate,
-    error
+    sortByDistance,
+    trainings,
   } = useSelector((state: AppState) => state);
 
-  // Sort trainings by distance
+  // Sorting and filtering
   const sortedTrainings: ITraining[] = useMemo(() => {
     let sortedTrainings = trainings;
 
@@ -32,9 +32,14 @@ export const MainPage = () => {
       sortedTrainings = [...trainings].sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
     }
 
-    return sortedTrainings;
+    return filterByType.length > 0
+      ? sortedTrainings
+        .filter((training: ITraining) => filterByType
+          .some((type: ITrainingType) => type.id === training.typeId)
+        )
+      : sortedTrainings;
 
-  }, [trainings, sortByDistance, sortByDate]);
+  }, [trainings, sortByDistance, sortByDate, filterByType]);
 
   if (error) {
     return (
@@ -58,10 +63,6 @@ export const MainPage = () => {
         <h1>Список тренировок:</h1>
         <Table
           trainings={sortedTrainings}
-          loading={loading}
-          types={types}
-          sortByDistance={sortByDistance}
-          sortByDate={sortByDate}
         />
       </Container>
     </PageWrapper>
