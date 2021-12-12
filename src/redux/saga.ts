@@ -74,7 +74,6 @@ function* deleteTraining(id: string) {
 }
 
 function* editTraining(training: ITraining) {
-  console.log(training);
   const requestUrl = `http://localhost:3000/trainings/${training.id}`;
   try {
     const response: ITraining = yield fetch(requestUrl, {

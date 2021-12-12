@@ -67,7 +67,6 @@ export const CreateForm = ({ id, onSubmit }: Props) => {
     if (id) {
       const editedTraining = state.trainings.find((training: ITraining) => training.id === id);
       if (editedTraining) {
-        console.log(editedTraining);
         formik.setValues({
           ...editedTraining,
           date: new Date(editedTraining.date),
