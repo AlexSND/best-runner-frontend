@@ -1,4 +1,11 @@
 import React from 'react';
-import './style.scss';
+import GlobalStyles from './styles/global-styles';
 
-export const App = () => (<h1>All work!</h1>);
+export const App = () => {
+  return (
+    <>
+      <h1>All work!</h1>
+      <GlobalStyles/>
+    </>
+  );
+};
