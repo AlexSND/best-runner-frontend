@@ -21,6 +21,7 @@ module.exports = {
     '@typescript-eslint'
   ],
   'rules': {
+    'no-case-declarations': 'off',
     'indent': [
       'error',
       2
