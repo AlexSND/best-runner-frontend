@@ -1,3 +1,4 @@
+import { NavigateFunction } from 'react-router';
 import { action } from 'typesafe-actions';
 import { ITraining, ITrainingType } from '../types';
 import { ActionTypes } from './constants';
@@ -36,8 +37,8 @@ export const editTrainingError = (error: any) => action(
 );
 
 // Create training
-export const createTraining = (training: ITraining) => action(
-  ActionTypes.CREATE_TRAINING, training
+export const createTraining = (params: {training: ITraining, navigate: NavigateFunction}) => action(
+  ActionTypes.CREATE_TRAINING, params
 );
 export const createTrainingSuccess = (training: ITraining) => action(
   ActionTypes.CREATE_TRAINING_SUCCESS, training

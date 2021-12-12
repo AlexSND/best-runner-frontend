@@ -2,11 +2,18 @@ import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Table } from '../../components/Table/Table';
 import { AppState } from '../../redux/types';
-import { Container } from '../../styles/shared-styles';
+import { Container, ErrorMessage } from '../../styles/shared-styles';
 import { ITraining } from '../../types';
 
 export const MainPage = () => {
-  const { loading, trainings, types, sortByDistance, sortByDate } = useSelector((state: AppState) => state);
+  const {
+    loading,
+    trainings,
+    types,
+    sortByDistance,
+    sortByDate,
+    error
+  } = useSelector((state: AppState) => state);
 
   // Sort trainings by distance
   const sortedTrainings: ITraining[] = useMemo(() => {
@@ -27,6 +34,16 @@ export const MainPage = () => {
     return sortedTrainings;
 
   }, [trainings, sortByDistance, sortByDate]);
+
+  if (error) {
+    return (
+      <Container>
+        <ErrorMessage>
+          { error }
+        </ErrorMessage>
+      </Container>
+    );
+  }
 
   return (
     <Container>

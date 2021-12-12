@@ -22,6 +22,10 @@ const GlobalStyles = createGlobalStyle`
   a {
     text-decoration: none;
   }
+
+  .disabled {
+    pointer-events: none;
+  }
 `;
 
 export default GlobalStyles;

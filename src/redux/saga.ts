@@ -1,4 +1,5 @@
 import { put, takeLatest } from 'redux-saga/effects';
+import { NavigateFunction } from 'react-router';
 import { ITraining, ITrainingType } from '../types';
 import {
   createTrainingError,
@@ -22,7 +23,7 @@ function* fetchTrainingsTypes() {
       yield put(fetchTrainingsTypesSuccess(response));
     }
   } catch (error: any) {
-    yield put(fetchTrainingsTypesError(error.message));
+    yield put(fetchTrainingsTypesError('Ошибка сервера'));
   }
 }
 
@@ -34,11 +35,11 @@ function* fetchTrainings() {
       yield put(fetchTrainingsSuccess(response));
     }
   } catch (error: any) {
-    yield put(fetchTrainingsError(error.message));
+    yield put(fetchTrainingsError('Ошибка сервера'));
   }
 }
 
-function* createTraining(training: ITraining) {
+function* createTraining({training, navigate}: {training: ITraining, navigate: NavigateFunction}) {
   const requestUrl = 'http://localhost:3000/trainings';
   try {
     const response: ITraining = yield fetch(requestUrl, {
@@ -50,9 +51,10 @@ function* createTraining(training: ITraining) {
     }).then(res => res.json());
     if (response) {
       yield put(createTrainingSuccess(response));
+      navigate('/');
     }
   } catch (error: any) {
-    yield put(createTrainingError(error.message));
+    yield put(createTrainingError('Ошибка сервера'));
   }
 }
 
@@ -67,7 +69,7 @@ function* deleteTraining(id: string) {
       yield put(deleteTrainingSuccess(id));
     }
   } catch (error: any) {
-    yield put(deleteTrainingError(error.message));
+    yield put(deleteTrainingError('Ошибка сервера'));
   }
 }
 
@@ -83,11 +85,10 @@ function* editTraining(training: ITraining) {
       }
     }).then(res => res.json());
     if (response) {
-      console.log(response);
       yield put(editTrainingSuccess(response));
     }
   } catch (error: any) {
-    yield put(deleteTrainingError(error.message));
+    yield put(deleteTrainingError('Ошибка сервера'));
   }
 }
 

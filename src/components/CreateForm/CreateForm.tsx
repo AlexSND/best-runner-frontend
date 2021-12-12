@@ -9,6 +9,7 @@ import { createTraining, editTraining } from '../../redux/actions';
 import { useFormik } from 'formik';
 import { AppState } from '../../redux/types';
 import { ITraining } from '../../types';
+import { useNavigate } from 'react-router';
 
 interface Props {
   id?: string | null;
@@ -17,6 +18,7 @@ interface Props {
 
 export const CreateForm = ({ id, onSubmit }: Props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const state = useSelector((state: AppState) => state);
 
   const validate = (values: {
@@ -53,7 +55,10 @@ export const CreateForm = ({ id, onSubmit }: Props) => {
         dispatch(editTraining({...editedTraining, id}));
         onSubmit && onSubmit();
       } else {
-        dispatch(createTraining(editedTraining));
+        dispatch(createTraining({
+          training: editedTraining,
+          navigate,
+        }));
       }
     }
   });

@@ -6,6 +6,7 @@ export interface AppState {
   readonly trainings: ITraining[]
   readonly types: ITrainingType[]
   readonly loading: boolean
+  readonly error: string | null
   readonly sortByDistance: ISortDirection;
   readonly sortByDate: ISortDirection;
 }

@@ -6,6 +6,7 @@ const initialState: AppState = {
   trainings: [],
   types: [],
   loading: false,
+  error: null,
   sortByDistance: null,
   sortByDate: null,
 };
@@ -19,7 +20,14 @@ const appReducer = (state: AppState = initialState, action: AppActions): AppStat
   case ActionTypes.FETCH_TRAININGS_TYPES_SUCCESS:
     return {
       ...state,
+      error: null,
       types: action.payload,
+      loading: false,
+    };
+  case ActionTypes.FETCH_TRAININGS_TYPES_ERROR:
+    return {
+      ...state,
+      error: action.payload,
       loading: false,
     };
 
@@ -31,7 +39,14 @@ const appReducer = (state: AppState = initialState, action: AppActions): AppStat
   case ActionTypes.FETCH_TRAININGS_SUCCESS:
     return {
       ...state,
+      error: null,
       trainings: action.payload,
+      loading: false,
+    };
+  case ActionTypes.FETCH_TRAININGS_ERROR:
+    return {
+      ...state,
+      error: action.payload,
       loading: false,
     };
 
@@ -43,7 +58,14 @@ const appReducer = (state: AppState = initialState, action: AppActions): AppStat
   case ActionTypes.CREATE_TRAINING_SUCCESS:
     return {
       ...state,
+      error: null,
       trainings: [...state.trainings, action.payload],
+      loading: false,
+    };
+  case ActionTypes.CREATE_TRAINING_ERROR:
+    return {
+      ...state,
+      error: action.payload,
       loading: false,
     };
 
@@ -58,7 +80,14 @@ const appReducer = (state: AppState = initialState, action: AppActions): AppStat
     updatingTrainings[idx] = action.payload;
     return {
       ...state,
+      error: null,
       trainings: updatingTrainings,
+      loading: false,
+    };
+  case ActionTypes.EDIT_TRAINING_ERROR:
+    return {
+      ...state,
+      error: action.payload,
       loading: false,
     };
 
@@ -70,7 +99,14 @@ const appReducer = (state: AppState = initialState, action: AppActions): AppStat
   case ActionTypes.DELETE_TRAINING_SUCCESS:
     return {
       ...state,
+      error: null,
       trainings: state.trainings.filter(training => training.id !== action.payload),
+      loading: false,
+    };
+  case ActionTypes.DELETE_TRAINING_ERROR:
+    return {
+      ...state,
+      error: action.payload,
       loading: false,
     };
 
