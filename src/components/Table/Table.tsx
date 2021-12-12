@@ -130,7 +130,7 @@ export const Table = ({ trainings }: Props) => {
 
   return (
     <>
-      <DataTable value={trainings} stripedRows className="p-datatable-customers" header={tableHeaderTemplate}>
+      <DataTable value={trainings} stripedRows className="p-datatable-customers" header={tableHeaderTemplate} emptyMessage="Ничего нет">
         <Column field="date" header={dateHeaderTemplate} body={dateBodyTemplate} />
         <Column field="typeId" header="Тип" body={typeBodyTemplate} />
         <Column field="distance" header={distanceHeaderTemplate} />

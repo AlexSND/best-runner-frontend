@@ -27,6 +27,9 @@ export const CreateForm = ({ id, onSubmit }: Props) => {
     const errors: {
       [key: string]: string;
     } = {};
+    if (values.description.length === 0) {
+      errors.description = 'Поле не может быть пустым';
+    }
     if (values.distance <= 0) {
       errors.distance = 'Должна быть больше 0';
     }
@@ -114,14 +117,16 @@ export const CreateForm = ({ id, onSubmit }: Props) => {
         </div>
         <div className="p-col-12 p-md-6">
           <div className="p-field">
-            <label htmlFor="description">Описание</label>
+            <label htmlFor="description" className={ `${formik.errors.description ? 'p-error' : ''}` }>Описание</label>
             <InputTextarea
               name="description"
               value={formik.values.description}
               onChange={formik.handleChange}
               autoResize
               rows={8}
+              className={ `${formik.errors.description ? 'p-invalid' : ''}` }
             />
+            { formik.errors.description ? <small className="p-error">{formik.errors.description}</small> : null }
           </div>
         </div>
         <div className="p-col-12">
