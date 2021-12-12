@@ -3,7 +3,7 @@ import { AppLogo } from './style';
 
 export const Logo = () => {
   return (
-    <AppLogo>
+    <AppLogo to="/">
       BestRunner
     </AppLogo>
   );

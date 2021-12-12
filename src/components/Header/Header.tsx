@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { Container } from '../../styles/shared-styles';
 import { StyledHeader } from './style';
@@ -9,7 +10,9 @@ export const Header = () => {
     <StyledHeader>
       <Container>
         <Logo/>
-        <Button label="Добавить" icon="pi pi-plus p-button-success" />
+        <Link to="/create">
+          <Button label="Добавить" icon="pi pi-plus p-button-success" />
+        </Link>
       </Container>
     </StyledHeader>
   );
