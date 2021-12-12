@@ -1,10 +1,11 @@
 import React from 'react';
 import GlobalStyles from './styles/global-styles';
+import { Header } from './components/Header/Header';
 
 export const App = () => {
   return (
     <>
-      <h1>All work!</h1>
+      <Header/>
       <GlobalStyles/>
     </>
   );
