@@ -9,3 +9,9 @@ export const TableFieldTitle = styled.div`
     margin: 0 5px 0 0;
   }
 `;
+
+export const ActionsField = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+`;

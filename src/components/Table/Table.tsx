@@ -6,7 +6,7 @@ import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { ISortDirection, ITraining, ITrainingType } from '../../types';
 import { deleteTraining, setDateSort, setDistanceSort } from '../../redux/actions';
-import { TableFieldTitle } from './style';
+import { ActionsField, TableFieldTitle } from './style';
 import { CreateForm } from '../CreateForm/CreateForm';
 import { formatDate } from '../../utils/format-date';
 
@@ -57,7 +57,7 @@ export const Table = ({ trainings, types, sortByDistance, sortByDate }: Props) =
 
   const actionBodyTemplate = (rowData: ITraining) => {
     return (
-      <div className='p-flex'>
+      <ActionsField>
         <Button
           type="button"
           icon="pi pi-pencil"
@@ -70,7 +70,7 @@ export const Table = ({ trainings, types, sortByDistance, sortByDate }: Props) =
           className="p-button-rounded p-button-danger p-button-text"
           onClick={() => showDeleteDialog(rowData.id!)}
         />
-      </div>
+      </ActionsField>
     );
   };
 
