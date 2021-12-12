@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import { Preloader } from '../../components/Preloader/Preloader';
 import { Table } from '../../components/Table/Table';
 import { AppState } from '../../redux/types';
 import { Container, ErrorMessage } from '../../styles/shared-styles';
@@ -42,6 +43,12 @@ export const MainPage = () => {
           { error }
         </ErrorMessage>
       </Container>
+    );
+  }
+
+  if (loading) {
+    return (
+      <Preloader/>
     );
   }
 

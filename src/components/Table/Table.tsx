@@ -18,7 +18,7 @@ interface Props {
   sortByDate: ISortDirection;
 }
 
-export const Table = ({ trainings, loading, types, sortByDistance, sortByDate }: Props) => {
+export const Table = ({ trainings, types, sortByDistance, sortByDate }: Props) => {
   const dispatch = useDispatch();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [deleteDialog, setDeleteDialog] = useState(false);
@@ -119,7 +119,7 @@ export const Table = ({ trainings, loading, types, sortByDistance, sortByDate }:
 
   return (
     <>
-      <DataTable value={trainings} stripedRows className="p-datatable-customers" loading={loading}>
+      <DataTable value={trainings} stripedRows className="p-datatable-customers">
         <Column field="date" header={dateHeaderTemplate} body={dateBodyTemplate} />
         <Column field="typeId" header="Тип" body={typeBodyTemplate} />
         <Column field="distance" header={distanceHeaderTemplate} />
