@@ -6,8 +6,9 @@ import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { ISortDirection, ITraining, ITrainingType } from '../../types';
 import { deleteTraining, setDateSort, setDistanceSort } from '../../redux/actions';
-import { formatDate } from '../../utils/format-date';
 import { TableFieldTitle } from './style';
+import { CreateForm } from '../CreateForm/CreateForm';
+import { formatDate } from '../../utils/format-date';
 
 interface Props {
   trainings: ITraining[];
@@ -21,6 +22,7 @@ export const Table = ({ trainings, loading, types, sortByDistance, sortByDate }:
   const dispatch = useDispatch();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [deleteDialog, setDeleteDialog] = useState(false);
+  const [editDialog, setEditDialog] = useState(false);
 
   const showDeleteDialog = (id: string) => {
     setSelectedId(id);
@@ -30,6 +32,16 @@ export const Table = ({ trainings, loading, types, sortByDistance, sortByDate }:
   const hideDeleteDialog = () => {
     setSelectedId(null);
     setDeleteDialog(false);
+  };
+
+  const showEditDialog = (id: string) => {
+    setSelectedId(id);
+    setEditDialog(true);
+  };
+
+  const hideEditDialog = () => {
+    setSelectedId(null);
+    setEditDialog(false);
   };
 
   const handleRemove = () => {
@@ -46,6 +58,12 @@ export const Table = ({ trainings, loading, types, sortByDistance, sortByDate }:
   const actionBodyTemplate = (rowData: ITraining) => {
     return (
       <div className='p-flex'>
+        <Button
+          type="button"
+          icon="pi pi-pencil"
+          className='p-mr-2 p-button-rounded p-button-text'
+          onClick={() => showEditDialog(rowData.id!)}
+        />
         <Button
           type="button"
           icon="pi pi-trash"
@@ -111,6 +129,10 @@ export const Table = ({ trainings, loading, types, sortByDistance, sortByDate }:
 
       <Dialog visible={deleteDialog} style={{ width: '450px' }} header="Подтверждение" modal footer={deleteDialogFooter} onHide={hideDeleteDialog}>
         { <span>Вы действительно хотите удалить тренировку?</span> }
+      </Dialog>
+
+      <Dialog visible={editDialog} style={{ width: '600px' }} header="Редактирование" modal onHide={hideEditDialog}>
+        <CreateForm id={selectedId} onSubmit={hideEditDialog}/>
       </Dialog>
     </>
   );
