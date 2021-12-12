@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Preloader } from '../../components/Preloader/Preloader';
 import { Table } from '../../components/Table/Table';
 import { AppState } from '../../redux/types';
-import { Container, ErrorMessage } from '../../styles/shared-styles';
+import { Container, ErrorMessage, PageWrapper } from '../../styles/shared-styles';
 import { ITraining } from '../../types';
 
 export const MainPage = () => {
@@ -53,15 +53,17 @@ export const MainPage = () => {
   }
 
   return (
-    <Container>
-      <h1>Список тренировок:</h1>
-      <Table
-        trainings={sortedTrainings}
-        loading={loading}
-        types={types}
-        sortByDistance={sortByDistance}
-        sortByDate={sortByDate}
-      />
-    </Container>
+    <PageWrapper>
+      <Container>
+        <h1>Список тренировок:</h1>
+        <Table
+          trainings={sortedTrainings}
+          loading={loading}
+          types={types}
+          sortByDistance={sortByDistance}
+          sortByDate={sortByDate}
+        />
+      </Container>
+    </PageWrapper>
   );
 };

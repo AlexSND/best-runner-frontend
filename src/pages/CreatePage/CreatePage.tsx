@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from 'primereact/card';
-import { Container, ErrorMessage } from '../../styles/shared-styles';
+import { Container, ErrorMessage, PageWrapper } from '../../styles/shared-styles';
 import { CreateForm } from '../../components/CreateForm/CreateForm';
 import { AppState } from '../../redux/types';
 import { useSelector } from 'react-redux';
@@ -26,11 +26,13 @@ export const CreatePage = () => {
   }
 
   return (
-    <Container>
-      <h1>Добавить новую тренировку</h1>
-      <Card>
-        <CreateForm />
-      </Card>
-    </Container>
+    <PageWrapper>
+      <Container>
+        <h1>Добавить новую тренировку</h1>
+        <Card>
+          <CreateForm />
+        </Card>
+      </Container>
+    </PageWrapper>
   );
 };

@@ -14,3 +14,7 @@ export const ErrorMessage = styled.div`
   border: 2px solid #f5c6cb;
   color: #721c24;
 `;
+
+export const PageWrapper = styled.div`
+  padding: 0 0 40px;
+`;
