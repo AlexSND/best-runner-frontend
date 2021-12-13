@@ -14,9 +14,10 @@ import {
 } from './actions';
 import { ActionTypes } from './constants';
 
+const API_URL = 'http://localhost:3000';
 
 function* fetchTrainingsTypes() {
-  const requestUrl = 'http://localhost:3000/types';
+  const requestUrl = `${API_URL}/types`;
   try {
     const response: ITrainingType[] = yield fetch(requestUrl).then(res => res.json());
     if (response) {
@@ -28,7 +29,7 @@ function* fetchTrainingsTypes() {
 }
 
 function* fetchTrainings() {
-  const requestUrl = 'http://localhost:3000/trainings';
+  const requestUrl = `${API_URL}/trainings`;
   try {
     const response: ITraining[] = yield fetch(requestUrl).then(res => res.json());
     if (response) {
@@ -40,7 +41,7 @@ function* fetchTrainings() {
 }
 
 function* createTraining({training, navigate}: {training: ITraining, navigate: NavigateFunction}) {
-  const requestUrl = 'http://localhost:3000/trainings';
+  const requestUrl = `${API_URL}/trainings`;
   try {
     const response: ITraining = yield fetch(requestUrl, {
       method: 'POST',
@@ -59,7 +60,7 @@ function* createTraining({training, navigate}: {training: ITraining, navigate: N
 }
 
 function* deleteTraining(id: string) {
-  const requestUrl = `http://localhost:3000/trainings/${id}`;
+  const requestUrl = `${API_URL}/trainings/${id}`;
   try {
     const response: ITraining = yield fetch(requestUrl, {
       method: 'DELETE',
@@ -74,7 +75,7 @@ function* deleteTraining(id: string) {
 }
 
 function* editTraining(training: ITraining) {
-  const requestUrl = `http://localhost:3000/trainings/${training.id}`;
+  const requestUrl = `${API_URL}/trainings/${training.id}`;
   try {
     const response: ITraining = yield fetch(requestUrl, {
       method: 'PUT',
